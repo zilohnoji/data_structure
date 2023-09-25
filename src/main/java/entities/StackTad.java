@@ -7,13 +7,16 @@ public class StackTad<T> implements ContractStack<T> {
     private Object[] stack;
 
     public StackTad() {
-        stack = new Object[MAX_CAPACITY];
+        stack = (T[]) new Object[MAX_CAPACITY];
     }
 
     @Override
     public T pop() {
-        last_position--;
-        return (T) this.stack[this.last_position];
+        if (this.size() != 0) {
+            last_position--;
+            return (T) this.stack[this.last_position];
+        }
+        return null;
     }
 
     @Override
@@ -22,7 +25,7 @@ public class StackTad<T> implements ContractStack<T> {
             last_position++;
             this.stack[last_position] = object;
         }
-        return null;
+        return (T) this.stack[last_position];
     }
 
     @Override
@@ -42,6 +45,7 @@ public class StackTad<T> implements ContractStack<T> {
 
     @Override
     public void clear() {
+        last_position = -1;
         stack = new Object[MAX_CAPACITY];
     }
 }
